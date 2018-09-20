@@ -13,7 +13,7 @@ function fakeChildProcess() {
   };
 }
 
-describe('utils', () => {
+describe('browl-util', () => {
   let sandbox;
 
   beforeEach(() => {

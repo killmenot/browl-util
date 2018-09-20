@@ -1,7 +1,7 @@
 {
   "name": "browl-util",
-  "version": "1.0.0",
-  "description": "",
+  "version": "0.1.0",
+  "description": "Browl util",
   "author": "Alexey Kucherenko",
   "main": "index.js",
   "license": "MIT",
@@ -15,8 +15,8 @@
   },
   "scripts": {
     "lint": "eslint lib test index.js",
-    "test": "mocha",
-    "coverage": "nyc --reporter=html --reporter=text mocha",
+    "test": "NODE_ENV=test mocha",
+    "coverage": "nyc --reporter=html --reporter=text npm run test",
     "coveralls": "npm run coverage && nyc report --reporter=text-lcov | coveralls"
   },
   "pre-commit": [
@@ -27,14 +27,6 @@
     "all": true,
     "include": [
       "lib/**/*.js"
-    ],
-    "exclude": [
-      ".nyc_output",
-      "chef",
-      "coverage",
-      "node_modules",
-      "test",
-      "tmp"
     ]
   },
   "dependencies": {
