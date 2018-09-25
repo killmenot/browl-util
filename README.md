@@ -1,6 +1,6 @@
 # browl-util
 
-[![Build Status](https://travis-ci.org/killmenot/browl-util.svg?branch=master)](https://travis-ci.org/killmenot/browl-util) [![Coverage Status](https://coveralls.io/repos/github/killmenot/browl-plugin-yaml/badge.svg?branch=master)](https://coveralls.io/github/killmenot/browl-util?branch=master) [![Dependency Status](https://david-dm.org/killmenot/browl-util.svg)](hhttps://david-dm.org/killmenot/browl-util) [![npm version](https://img.shields.io/npm/v/browl-util.svg)](https://www.npmjs.com/package/browl-util)
+[![Build Status](https://travis-ci.org/killmenot/browl-util.svg?branch=master)](https://travis-ci.org/killmenot/browl-util) [![Coverage Status](https://coveralls.io/repos/github/killmenot/browl-plugin-yaml/badge.svg?branch=master)](https://coveralls.io/github/killmenot/browl-util?branch=master) [![Dependency Status](https://david-dm.org/killmenot/browl-util.svg)](https://david-dm.org/killmenot/browl-util) [![npm version](https://img.shields.io/npm/v/browl-util.svg)](https://www.npmjs.com/package/browl-util)
 
 Browl utilities
 
