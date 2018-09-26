@@ -84,7 +84,7 @@ describe('browl-util', () => {
 
     it('should accept sudo, name, args, options and callback arguments', (done) => {
       utils.run(true, 'make', ['install'], options, () => {
-        expect(sudoStub).be.calledWith(['make', 'install'], {
+        expect(sudoStub).calledWith(['make', 'install'], {
           spawnOptions: {
             foo: 'bar'
           }
@@ -95,7 +95,7 @@ describe('browl-util', () => {
 
     it('should accept name, args, options and callback arguments', (done) => {
       utils.run('make', ['install'], options, () => {
-        expect(spawnStub).be.calledWith('make', ['install'], {
+        expect(spawnStub).calledWith('make', ['install'], {
           foo: 'bar'
         });
         done();
@@ -104,21 +104,21 @@ describe('browl-util', () => {
 
     it('should accept sudo, name, args and callback arguments', (done) => {
       utils.run(true, 'make', ['install'], () => {
-        expect(sudoStub).be.calledWith(['make', 'install'], {});
+        expect(sudoStub).calledWith(['make', 'install'], {});
         done();
       });
     });
 
     it('should accept name, args and callback arguments', (done) => {
       utils.run('make', ['install'], () => {
-        expect(spawnStub).be.calledWith('make', ['install'], {});
+        expect(spawnStub).calledWith('make', ['install'], {});
         done();
       });
     });
 
     it('should accept sudo name, options and callback arguments', (done) => {
       utils.run(true, 'make', options, () => {
-        expect(sudoStub).be.calledWith(['make'], {
+        expect(sudoStub).calledWith(['make'], {
           spawnOptions: {
             foo: 'bar'
           }
@@ -129,7 +129,7 @@ describe('browl-util', () => {
 
     it('should accept name, options and callback arguments', (done) => {
       utils.run('make', options, () => {
-        expect(spawnStub).be.calledWith('make', [], {
+        expect(spawnStub).calledWith('make', [], {
           foo: 'bar'
         });
         done();
@@ -138,17 +138,17 @@ describe('browl-util', () => {
 
     it('should accept sudo, name and args arguments', () => {
       utils.run(true, 'make', ['install']);
-      expect(sudoStub).be.calledWith(['make', 'install'], {});
+      expect(sudoStub).calledWith(['make', 'install'], {});
     });
 
     it('should accept name and args arguments', () => {
       utils.run('make', ['install']);
-      expect(spawnStub).be.calledWith('make', ['install'], {});
+      expect(spawnStub).calledWith('make', ['install'], {});
     });
 
     it('should accept sudo, name and options arguments', () => {
       utils.run(true, 'make', options);
-      expect(sudoStub).be.calledWith(['make'], {
+      expect(sudoStub).calledWith(['make'], {
         spawnOptions: {
           foo: 'bar'
         }
@@ -157,35 +157,35 @@ describe('browl-util', () => {
 
     it('should accept name and options arguments', () => {
       utils.run('make', options);
-      expect(spawnStub).be.calledWith('make', [], {
+      expect(spawnStub).calledWith('make', [], {
         foo: 'bar'
       });
     });
 
     it('should accept sudo, name and callback arguments', (done) => {
       utils.run(true, 'make', () => {
-        expect(sudoStub).be.calledWith(['make'], {});
+        expect(sudoStub).calledWith(['make'], {});
         done();
       });
     });
 
     it('should accept name and callback arguments', (done) => {
       utils.run('make', () => {
-        expect(spawnStub).be.calledWith('make', [], {});
+        expect(spawnStub).calledWith('make', [], {});
         done();
       });
     });
 
     it('should accept sudo and name arguments', (done) => {
       utils.run(true, 'make', () => {
-        expect(sudoStub).be.calledWith(['make'], {});
+        expect(sudoStub).calledWith(['make'], {});
         done();
       });
     });
 
     it('should name argument', (done) => {
       utils.run('make', () => {
-        expect(spawnStub).be.calledWith('make', [], {});
+        expect(spawnStub).calledWith('make', [], {});
         done();
       });
     });
@@ -198,7 +198,39 @@ describe('browl-util', () => {
 
     it('should call utils.run as sudo', () => {
       utils.sudo('arg1', 'arg2', 'arg3');
-      expect(utils.run).be.calledWith(true, 'arg1', 'arg2', 'arg3');
+      expect(utils.run).calledWith(true, 'arg1', 'arg2', 'arg3');
+    });
+  });
+
+  describe('#installModule', () => {
+    let execSyncStub;
+    let revert;
+
+    beforeEach(() => {
+      execSyncStub = sandbox.stub();
+
+      revert = utils.__set__({
+        execSync: execSyncStub
+      });
+    });
+
+    afterEach(() => {
+      revert();
+    });
+
+    it('should install module', () => {
+      utils.installModule('sinon');
+      expect(execSyncStub).calledWith('npm install sinon', { stdio: [0, 1, 2] });
+    });
+
+    it('should install module in specific directory', () => {
+      utils.installModule('sinon', { cwd: '/path/to/dir' });
+      expect(execSyncStub).calledWith('npm install --prefix /path/to/dir sinon', { stdio: [0, 1, 2] });
+    });
+
+    it('should install module globally', () => {
+      utils.installModule('sinon', { global: true });
+      expect(execSyncStub).calledWith('npm install --global sinon', { stdio: [0, 1, 2] });
     });
   });
 });
