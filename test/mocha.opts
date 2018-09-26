@@ -3,5 +3,5 @@
 --colors
 --require test/helper
 --recursive
---timeout 10000
+--timeout 2000
 --exit
